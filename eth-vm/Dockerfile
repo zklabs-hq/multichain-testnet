@@ -1,0 +1,20 @@
+FROM node:16-slim
+
+ARG MAINNET_RPC
+ARG HOST
+ARG PORT
+ARG CHAIN_ID
+
+WORKDIR /usr/src/app
+
+COPY . ./
+RUN npm install
+
+ENV RPC=${MAINNET_RPC}
+ENV HOST=${HOST}
+ENV PORT=${PORT}
+ENV CHAIN_ID=${CHAIN_ID}
+
+CMD npx hardhat node
+
+EXPOSE ${PORT}

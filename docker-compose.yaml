@@ -1,0 +1,17 @@
+version: '0.1'
+
+services:
+  ethereum-testnet-rpc:
+    build:
+      context: ./eth-vm
+      args:
+        MAINNET_RPC: ${ETHEREUM_MAINNET_ARCHIVE_NODE}
+        HOST: ${HOST}
+        PORT: ${ETHEREUM_PORT}
+        CHAIN_ID: ${ETHEREUM_CHAIN_ID}
+      dockerfile: Dockerfile
+    image: ethereum-testnet-rpc
+    container_name: ethereum-testnet-rpc
+    restart: unless-stopped
+    ports:
+      - 8990:8545

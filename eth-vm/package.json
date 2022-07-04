@@ -1,0 +1,33 @@
+{
+  "name": "multichain-testnet",
+  "version": "1.0.0",
+  "description": "Testnet with weak main-net equivalence for all EVM based chains",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zklabs-hq/multichain-testnet.git"
+  },
+  "keywords": [
+    "testnet",
+    "web3",
+    "mode",
+    "hardhat"
+  ],
+  "author": "Adarsh Srivastava (adarshkumar11@gmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zklabs-hq/multichain-testnet/issues"
+  },
+  "homepage": "https://github.com/zklabs-hq/multichain-testnet#readme",
+  "devDependencies": {
+    "hardhat": "^2.9.9"
+  },
+  "dependencies": {
+    "@ethereumjs/tx": "^3.5.2",
+    "express": "^4.18.1",
+    "web3": "^1.7.4"
+  }
+}
