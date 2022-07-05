@@ -5,7 +5,7 @@ ARG HOST
 ARG PORT
 ARG CHAIN_ID
 
-WORKDIR /usr/src/app
+WORKDIR /usr/src/vm
 
 COPY . ./
 RUN npm install

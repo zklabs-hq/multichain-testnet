@@ -1,0 +1,15 @@
+{
+  "name": "svc",
+  "version": "0.0.1",
+  "description": "Node JS Server that manages the Faucet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Adarsh Srivastava (adarshkumar11@gmail.com)",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "web3": "^1.7.4"
+  }
+}
