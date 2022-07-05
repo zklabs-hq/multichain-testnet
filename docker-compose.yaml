@@ -14,4 +14,33 @@ services:
     container_name: ethereum-testnet-rpc
     restart: unless-stopped
     ports:
-      - 8990:8545
+      - ${ETHEREUM_PORT}:${ETHEREUM_PORT}
+
+  optimism-testnet-rpc:
+    build:
+      context: ./eth-vm
+      args:
+        MAINNET_RPC: ${OPTIMISM_MAINNET_ARCHIVE_NODE}
+        HOST: ${HOST}
+        PORT: ${OPTIMISM_PORT}
+        CHAIN_ID: ${OPTIMISM_CHAIN_ID}
+      dockerfile: Dockerfile
+    image: optimism-testnet-rpc
+    container_name: optimism-testnet-rpc
+    restart: unless-stopped
+    ports:
+      - ${OPTIMISM_PORT}:${OPTIMISM_PORT}
+  # arbitrum-testnet-rpc:
+  #   build:
+  #     context: ./eth-vm
+  #     args:
+  #       MAINNET_RPC: ${ARBITRUM_MAINNET_ARCHIVE_NODE}
+  #       HOST: ${HOST}
+  #       PORT: ${ARBITRUM_PORT}
+  #       CHAIN_ID: ${ARBITRUM_CHAIN_ID}
+  #     dockerfile: Dockerfile
+  #   image: arbitrum-testnet-rpc
+  #   container_name: arbitrum-testnet-rpc
+  #   restart: unless-stopped
+  #   ports:
+  #     - ${ARBITRUM_PORT}:${ARBITRUM_PORT}

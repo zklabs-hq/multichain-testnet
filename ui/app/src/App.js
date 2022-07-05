@@ -5,7 +5,7 @@ function App() {
   const chainIdMap = {
     ethereum: {
       chainId: '',
-      rpcUrls: ['']
+      rpcUrls: ['http://localhost:8545']
     },
     optimism: {
       chainId: '',
@@ -29,7 +29,7 @@ function App() {
     try {
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
-        params: [{ chainId: '0x3' }],
+        params: [{ chainId: '0x7A6B' }],
       });
     } catch (switchError) {
       // This error code indicates that the chain has not been added to MetaMask.
@@ -39,9 +39,9 @@ function App() {
             method: 'wallet_addEthereumChain',
             params: [
               {
-                chainId: '0xf00',
-                chainName: '...',
-                rpcUrls: ['https://...'] /* ... */,
+                chainId: '0x7A6B',
+                chainName: 'Multichain Testnet ETHEREUM',
+                rpcUrls: ['http://localhost:8545'],
               },
             ],
           });

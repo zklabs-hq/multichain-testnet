@@ -1,0 +1,3 @@
+[submodule "expedition"]
+	path = expedition
+	url = https://github.com/xops/expedition
