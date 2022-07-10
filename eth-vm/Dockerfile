@@ -15,6 +15,6 @@ ENV HOST=${HOST}
 ENV PORT=${PORT}
 ENV CHAIN_ID=${CHAIN_ID}
 
-CMD npx hardhat node
+CMD npx hardhat node --port ${PORT}
 
 EXPOSE ${PORT}

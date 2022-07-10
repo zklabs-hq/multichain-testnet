@@ -1,4 +1,4 @@
-version: '0.1'
+version: "3.9"
 
 services:
   ethereum-testnet-rpc:
@@ -30,17 +30,44 @@ services:
     restart: unless-stopped
     ports:
       - ${OPTIMISM_PORT}:${OPTIMISM_PORT}
-  # arbitrum-testnet-rpc:
+
+  polygon-testnet-rpc:
+    build:
+      context: ./eth-vm
+      args:
+        MAINNET_RPC: ${POLYGON_MAINNET_ARCHIVE_NODE}
+        HOST: ${HOST}
+        PORT: ${POLYGON_PORT}
+        CHAIN_ID: ${POLYGON_CHAIN_ID}
+      dockerfile: Dockerfile
+    image: polygon-testnet-rpc
+    container_name: polygon-testnet-rpc
+    restart: unless-stopped
+    ports:
+      - ${POLYGON_PORT}:${POLYGON_PORT}
+
+  arbitrum-testnet-rpc:
+    build:
+      context: ./eth-vm
+      args:
+        MAINNET_RPC: ${ARBITRUM_MAINNET_ARCHIVE_NODE}
+        HOST: ${HOST}
+        PORT: ${ARBITRUM_PORT}
+        CHAIN_ID: ${ARBITRUM_CHAIN_ID}
+      dockerfile: Dockerfile
+    image: arbitrum-testnet-rpc
+    container_name: arbitrum-testnet-rpc
+    restart: unless-stopped
+    ports:
+      - ${ARBITRUM_PORT}:${ARBITRUM_PORT}
+  # faucet:
   #   build:
-  #     context: ./eth-vm
+  #     context: ./svc
   #     args:
-  #       MAINNET_RPC: ${ARBITRUM_MAINNET_ARCHIVE_NODE}
-  #       HOST: ${HOST}
-  #       PORT: ${ARBITRUM_PORT}
-  #       CHAIN_ID: ${ARBITRUM_CHAIN_ID}
+  #       SVC_PORT: ${SVC_PORT}
   #     dockerfile: Dockerfile
-  #   image: arbitrum-testnet-rpc
-  #   container_name: arbitrum-testnet-rpc
+  #   image: faucet
+  #   container_name: faucet
   #   restart: unless-stopped
   #   ports:
-  #     - ${ARBITRUM_PORT}:${ARBITRUM_PORT}
+  #     - ${SVC_PORT}:${SVC_PORT}

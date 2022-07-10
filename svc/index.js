@@ -1,18 +1,22 @@
 const express = require('express');
 const Web3 = require("web3");
+var cors = require('cors')
+
 const app = express();
 const appPort = process.env.PORT;
 
 // For parsing application/json
 app.use(express.json());
 
+app.use(cors())
 // For parsing application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
 const chainPortMap = {
   'ethereum': 8545,
   'optimism': 8550,
-  'arbitrum': 8555
+  'arbitrum': 8555,
+  'polygon': 8560
 }
 
 app.post('/getETH', async (req, res) => {
@@ -32,8 +36,8 @@ app.listen(appPort, () => {
 });
 
 async function transferFundsToUserWallet(port, recieverAddress) {
-  const ethNetwork = `http://0.0.0.0:${port}/`;
-  const web3 = new Web3(new Web3.providers.HttpProvider(ethNetwork));
+  const network = `http://localhost:${port}/`;
+  const web3 = new Web3(new Web3.providers.HttpProvider(network));
   const senderData = {
     address: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
     privateKey: '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80'

@@ -28,6 +28,7 @@
   "dependencies": {
     "@ethereumjs/tx": "^3.5.2",
     "express": "^4.18.1",
+    "node-cron": "^3.0.1",
     "web3": "^1.7.4"
   }
 }
