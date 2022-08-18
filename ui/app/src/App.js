@@ -1,6 +1,8 @@
 import './App.css';
 import axios from 'axios';
 import { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -22,42 +24,56 @@ function App() {
 
   const chainIdMap = {
     ethereum: {
+      name: 'ethereum',
       chainId: '0x7A69',
       chainName: 'Multichain Testnet Ethereum',
-      rpcUrls: ['http://localhost:8545']
+      rpcUrls: [process.env.REACT_APP_ETHEREUM_RPC_URL]
     },
     optimism: {
+      name: 'optimism',
       chainId: '0x7A6A',
       chainName: 'Multichain Testnet Optimism',
-      rpcUrls: ['http://localhost:8550']
+      rpcUrls: [process.env.REACT_APP_OPTIMISM_RPC_URL]
     },
-    arbitreum: {
+    arbitrum: {
+      name: 'arbitrum',
       chainId: '0x7A6B',
-      chainName: 'Multichain Testnet Arbitreum',
-      rpcUrls: ['http://localhost:8555']
+      chainName: 'Multichain Testnet Arbitrum',
+      rpcUrls: [process.env.REACT_APP_ARBITEUM_RPC_URL]
     },
     polygon: {
+      name: 'polygon',
       chainId: '0x7A6C',
       chainName: 'Multichain Testnet Polygon',
-      rpcUrls: ['http://localhost:8560']
+      rpcUrls: [process.env.REACT_APP_POYGON_RPC_URL]
     },
   };
 
   const getETH = async (chain, accountAddress) => {
-    const res = await axios.post('http://localhost:3000/getETH', { chain, accountAddress });
-    console.log(res);
+    try {
+      const res = await axios.post(`${process.env.REACT_APP_FAUCET_URL}/getETH`,
+        { chain, accountAddress });
+      console.log(res);
+      toast("🦄 Faucet Transfer Successfully!");
+    } catch (err) {
+      console.error(err);
+      toast.error("😵 Faucet Failed to Transfer");
+    }
   }
 
   const openBlockExplorer = async (chain) => {
-    window.open(`http://localhost:3001?rpcUrl=${chainIdMap[chain].rpcUrls[0]}`, '_blank', 'noopener,noreferrer');
+    window.open(`${process.env.REACT_APP_BLOCK_EXPLORER_URL}?rpcUrl=${chainIdMap[chain].rpcUrls[0]}`,
+      '_blank', 'noopener,noreferrer');
   }
 
   const switchChain = async (chainName) => {
+    setSelected(chainName);
     try {
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: chainIdMap[chainName].chainId }],
       });
+      toast("🦄 Test Chain Added to Metamask Successfully")
     } catch (switchError) {
       // This error code indicates that the chain has not been added to MetaMask.
       if (switchError.code === 4902) {
@@ -75,7 +91,7 @@ function App() {
           return;
         } catch (addError) {
           console.error(addError);
-          alert('Unable to add Chain');
+          toast.error('🤕 Unable to Add Test Chain to Metamask');
           throw addError;
         }
       }
@@ -87,9 +103,10 @@ function App() {
     <div className="App">
       <div class="container">
         <section class="section is-medium">
-          <h1 class="title">Multichain Testnet</h1>
+          <h1 class="title">🦄 Multichain Testnet</h1>
           <h2 class="subtitle">
-            A simple testnet with weak <strong>Mainnet Equivalence</strong>, test your smart contracts with mainnet state.
+            A simple testnet with weak <strong>Mainnet Equivalence</strong>,
+            test your smart contracts with mainnet state.
           </h2>
         </section>
         <div>
@@ -116,12 +133,9 @@ function App() {
               }}>Send 0.5 ETH/MATIC</button>
             </div>
           </div>
-
         </div>
-
-
-
       </div>
+
       <section className='section'>
         <div class="columns">
           <div class="column">
@@ -138,6 +152,15 @@ function App() {
 
                 <div class="content box">
                   <div class="block">
+                    <label>RPC URL - </label>
+                    <input class="input is-link is-small" type="text" style={{
+                      'textAlign': 'center',
+                      'width': '50%'
+                    }}
+                      value={process.env.REACT_APP_ETHEREUM_RPC_URL} readOnly />
+                  </div>
+
+                  <div class="block">
                     <button class="button is-light" onClick={() => {
                       switchChain('ethereum')
                     }}>Connect to Ethereum Testnet</button>
@@ -146,7 +169,7 @@ function App() {
                   <div class="block">
                     <button class="button is-dark" onClick={() => {
                       openBlockExplorer('ethereum')
-                    }}>Open Block Explorer</button>
+                    }}>Open Etherem Block Explorer</button>
                   </div>
                 </div>
               </div>
@@ -166,6 +189,15 @@ function App() {
 
                 <div class="content box">
                   <div class="block">
+                    <label>RPC URL - </label>
+                    <input class="input is-link is-small" type="text" style={{
+                      'textAlign': 'center',
+                      'width': '50%'
+                    }}
+                      value={process.env.REACT_APP_OPTIMISM_RPC_URL} readOnly />
+                  </div>
+
+                  <div class="block">
                     <button class="button is-light" onClick={() => {
                       switchChain('optimism')
                     }}>Connect to Optimism Testnet</button>
@@ -174,7 +206,7 @@ function App() {
                   <div class="block">
                     <button class="button is-dark" onClick={() => {
                       openBlockExplorer('optimism')
-                    }}>Open Block Explorer</button>
+                    }}>Open Optimism Block Explorer</button>
                   </div>
                 </div>
               </div>
@@ -196,6 +228,15 @@ function App() {
 
                 <div class="content box">
                   <div class="block">
+                    <label>RPC URL - </label>
+                    <input class="input is-link is-small" type="text" style={{
+                      'textAlign': 'center',
+                      'width': '50%'
+                    }}
+                      value={process.env.REACT_APP_POLYGON_RPC_URL} readOnly />
+                  </div>
+
+                  <div class="block">
                     <button class="button is-light" onClick={() => {
                       switchChain('polygon')
                     }}>Connect to Polygon Testnet</button>
@@ -204,7 +245,7 @@ function App() {
                   <div class="block">
                     <button class="button is-dark" onClick={() => {
                       openBlockExplorer('polygon')
-                    }}>Open Block Explorer</button>
+                    }}>Open Polygon Block Explorer</button>
                   </div>
                 </div>
               </div>
@@ -213,7 +254,7 @@ function App() {
           <div class="column">
             <div class="card">
               <div class="card-image">
-                <img width={145} src="https://bridge.arbitrum.io/images/Arbitrum_Symbol_-_Full_color_-_White_background.svg" alt="" />
+                <img width={148} src="https://miro.medium.com/max/1400/1*uDneNARNqdafkVxt5bxVuA.jpeg" alt="" />
               </div>
               <div class="card-content">
                 <div class="media">
@@ -224,6 +265,15 @@ function App() {
 
                 <div class="content box">
                   <div class="block">
+                    <label>RPC URL - </label>
+                    <input class="input is-link is-small" type="text" style={{
+                      'textAlign': 'center',
+                      'width': '50%'
+                    }}
+                      value={process.env.REACT_APP_ARBITRUM_RPC_URL} readOnly />
+                  </div>
+
+                  <div class="block">
                     <button class="button is-light" onClick={() => {
                       switchChain('arbitrum')
                     }}>Connect to Arbitrum Testnet</button>
@@ -232,7 +282,7 @@ function App() {
                   <div class="block">
                     <button class="button is-dark" onClick={() => {
                       openBlockExplorer('arbitrum')
-                    }}>Open Block Explorer</button>
+                    }}>Open Arbitrum Block Explorer</button>
                   </div>
                 </div>
               </div>
@@ -240,9 +290,21 @@ function App() {
           </div>
         </div>
       </section>
-      <section className='section'>
-
-      </section>
+      <div>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        {/* Same as */}
+        <ToastContainer />
+      </div>
     </div >
   );
 }
