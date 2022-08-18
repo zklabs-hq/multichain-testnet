@@ -18,7 +18,6 @@ function App() {
   const [accountAddress, setAccountAddress] = useState('');
 
   const handleChange = event => {
-    console.log(event.target.value);
     setSelected(event.target.value);
   };
 
