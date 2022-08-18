@@ -20,11 +20,6 @@ async function resetNetwork() {
   console.log(res);
 }
 
-cron.schedule('* * 0 0 SUN', async () => {
-  console.log('Resetting Network');
-  await resetNetwork();
-});
-
 module.exports = {
   networks: {
     hardhat: {

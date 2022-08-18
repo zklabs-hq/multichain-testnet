@@ -14,9 +14,17 @@ async function resetNetwork() {
   console.log(res);
 }
 
+async function takeSnapshot() {
+  const res = await network.provider.request({
+    method: 'evm_snapshot'
+  });
+  console.log(res);
+}
+
 (async () => {
   try {
-    await resetNetwork();
+    // await resetNetwork();
+    await takeSnapshot();
   } catch (error) {
     console.error(error);
   }
