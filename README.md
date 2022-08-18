@@ -1,7 +1,7 @@
 # multichain-testnet
 Multichain Testnet which has a weak correlation with the mainnet
 
-Motivation - 
+Motivation - https://www.questbook.app/explore_grants/about_grant/?grantId=0x78bec6ea50fa2b2cef421e558263b348bdea5af8&chainId=10
 
 ## Setup
 
@@ -12,7 +12,7 @@ Install Docker - https://docs.docker.com/get-docker/
 
 ### Repo Setup
 ```
-$ git clone https://github.com/zklabs-hq/multichain-testnet.git
+$ git clone --recurse-submodules -j8 https://github.com/zklabs-hq/multichain-testnet.git
 
 $ cd multichain-testnet
 
