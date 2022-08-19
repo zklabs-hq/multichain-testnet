@@ -47,17 +47,6 @@ POLYGON_PORT=8560
 ```
 $ docker-compose up
 ```
-
-### Service
-
-```
-$ cd svc
-
-$ npm install
-
-$ PORT=3000 node index.js
-```
-
 ### Block Explorer
 Start this at PORT 3001
 ```
