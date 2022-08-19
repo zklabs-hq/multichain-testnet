@@ -23,7 +23,7 @@ app.post('/getETH', async (req, res) => {
   const { chain, accountAddress } = req.body;
   const chainPort = chainPortMap[chain];
   try {
-    const transResp = await transferFundsToUserWallet(chainPort, accountAddress);
+    const transResp = await transferFundsToUserWallet(chain, chainPort, accountAddress);
     res.status(202).json(transResp);
   } catch (err) {
     console.error(err);
@@ -35,8 +35,8 @@ app.listen(appPort, () => {
   console.log(`Multichain Testnet listening on port ${appPort}`);
 });
 
-async function transferFundsToUserWallet(port, recieverAddress) {
-  const network = `http://localhost:${port}/`;
+async function transferFundsToUserWallet(chain, port, recieverAddress) {
+  const network = `http://${chain}-testnet-rpc:${port}`;
   const web3 = new Web3(new Web3.providers.HttpProvider(network));
   const senderData = {
     address: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',

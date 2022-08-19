@@ -60,14 +60,15 @@ services:
     restart: unless-stopped
     ports:
       - ${ARBITRUM_PORT}:${ARBITRUM_PORT}
-  # faucet:
-  #   build:
-  #     context: ./svc
-  #     args:
-  #       SVC_PORT: ${SVC_PORT}
-  #     dockerfile: Dockerfile
-  #   image: faucet
-  #   container_name: faucet
-  #   restart: unless-stopped
-  #   ports:
-  #     - ${SVC_PORT}:${SVC_PORT}
+  
+  faucet:
+    build:
+      context: ./svc
+      args:
+        SVC_PORT: ${SVC_PORT}
+      dockerfile: Dockerfile
+    image: faucet
+    container_name: faucet
+    restart: unless-stopped
+    ports:
+      - ${SVC_PORT}:${SVC_PORT}
