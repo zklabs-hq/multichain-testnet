@@ -6,9 +6,14 @@ Motivation - https://www.questbook.app/explore_grants/about_grant/?grantId=0x78b
 ## Setup
 
 ### Get Mainnet nodes
-Alchemy
+```
+Create account on Alchemy and have your API keys ready
+```
+
 ### Docker
+```
 Install Docker - https://docs.docker.com/get-docker/
+```
 
 ### Repo Setup
 ```
