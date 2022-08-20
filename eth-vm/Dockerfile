@@ -8,6 +8,7 @@ ARG CHAIN_ID
 WORKDIR /usr/src/vm
 
 COPY . ./
+RUN npm install
 
 ENV RPC=${MAINNET_RPC}
 ENV HOST=${HOST}
